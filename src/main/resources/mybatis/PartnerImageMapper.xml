@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fundzforus.server.dao.mybatis.PartnerImageMapper" >
+    <resultMap id="partnerImageResultMap" type="com.fundzforus.server.domain.PartnerImage" >
+        <id column="IMG_ID" property="id" jdbcType="INTEGER" />
+        <result property="imgName" column="IMG_NAME" jdbcType="VARCHAR" />
+        <result property="imgDescription" column="IMG_DESCRIPTION" jdbcType="VARCHAR" />
+        <result property="imgURL" column="IMG_URL" jdbcType="VARCHAR" />
+        <result property="partnerId" column="PARTNER_ID" jdbcType="VARCHAR" />
+        <result property="createDateTime" column="CREATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="createdBy" column="CREATED_BY" jdbcType="VARCHAR" />
+        <result property="updateDateTime" column="UPDATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="updatedBy" column="UPDATED_BY" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="findAllPartnerImages" resultMap="partnerImageResultMap">
+        SELECT
+            IMG_ID,
+            IMG_NAME,
+            IMG_DESCRIPTION,
+            IMG_URL,
+            PARTNER_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PARTNER_IMG
+    </select>
+
+    <select id="findPartnerImagesByPartnerId" resultMap="partnerImageResultMap" parameterType="java.util.Map">
+        SELECT
+            IMG_ID,
+            IMG_NAME,
+            IMG_DESCRIPTION,
+            IMG_URL,
+            PARTNER_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PARTNER_IMG
+        WHERE
+            PARTNER_ID = #{partnerId, jdbcType=VARCHAR}
+    </select>
+
+    <select id = "getPartnerImageById" parameterType = "java.util.Map" resultMap = "partnerImageResultMap">
+      SELECT
+            IMG_ID,
+            IMG_NAME,
+            IMG_DESCRIPTION,
+            IMG_URL,
+            PARTNER_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PARTNER_IMG
+        WHERE IMG_ID = #{id}
+   </select>
+
+    <update id = "updatePartnerImage" parameterType = "com.fundzforus.server.domain.PartnerImage">
+      UPDATE TBL_PARTNER_IMG SET
+            IMG_NAME = #{imgName, jdbcType=VARCHAR},
+            IMG_DESCRIPTION = #{imgDescription, jdbcType=VARCHAR},
+            IMG_URL = #{imgURL, jdbcType=VARCHAR},
+            PARTNER_ID = #{partnerId, jdbcType=VARCHAR},
+            UPDATE_DATETIME = CURRENT_TIMESTAMP(),
+            UPDATED_BY = #{updatedBy, jdbcType=VARCHAR}
+      WHERE IMG_ID = #{id, jdbcType=VARCHAR}
+   </update>
+
+    <insert id="insertPartnerImage" parameterType="com.fundzforus.server.domain.PartnerImage">
+        INSERT INTO TBL_PARTNER_IMG (
+            IMG_NAME,
+            IMG_DESCRIPTION,
+            IMG_URL,
+            PARTNER_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY)
+        VALUES(
+            #{imgName, jdbcType=VARCHAR},
+            #{imgDescription, jdbcType=VARCHAR},
+            #{imgURL, jdbcType=VARCHAR},
+            #{partnerId, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP(),
+            #{createdBy, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP(),
+            #{updatedBy, jdbcType=VARCHAR}
+        )
+    </insert>
+    <delete id = "deletePartnerImageById" parameterType = "java.util.Map">
+        DELETE FROM TBL_PARTNER_IMG WHERE IMG_ID = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+		<link rel="stylesheet" type="text/css" href="/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
+		<title>FUNDZFORUS</title>
+	</head>
+	<body>
+		<div class="sign-container">
+			<h1>Let's Get Started</h1>
+			<h4>Sign up or login to see our blogs and attend to our events </h4>
+			<h4 th:if="${userForm.message == 'User is already exist'}">User is already exist. Please <a href="/login">login</a></h4>
+			<h4 th:unless="${userForm.message == 'User is already exist'}"><span th:text="${userForm.message}">error summary</span></h4>
+			<form action="#" th:action="@{/registration}" th:object="${userForm}" method="post" enctype="multipart/form-data">
+				<input type="text" placeholder="Enter Email" th:field="*{email}" class="sign-in-input">
+				<input type="password" placeholder="Enter your Password" th:field="*{password}" class="sign-in-input">
+				<input type="text" placeholder="Enter your First Name" th:field="*{firstName}" class="sign-in-input">
+				<input type="text" placeholder="Enter your Last Name" th:field="*{lastName}" class="sign-in-input">
+				<input type="text" placeholder="Enter Phone Number" th:field="*{phone}" class="sign-in-input">
+				<input type="text" placeholder="Enter your Location" th:field="*{location}" class="sign-in-input">
+				<span class="receive-notifications">Receive Notifications <input type="checkbox" style="width:20px;height:20px;" th:field="*{receiveNotification}"></span>
+				<select class="sign-in-input" th:field="*{userTenantId}">
+					<option value="">Select a Tenant</option>
+					<option th:each="tenant : *{tenants}"
+							th:value="${tenant.id}"
+							th:text="${tenant.tenantName}+', '+${tenant.city}+', '+${tenant.state}"></option>
+				</select>
+				<div class="add-img">
+					<div><i class="fa fa-plus fa-2x plus" aria-hidden="true"></i><br>Add Image</div>
+					<input type="file" th:field="*{multiPartImage}" accept="image/png, image/jpeg" class="sign-in-input"/>
+					<!--div class="add-pic"><i class="fa fa-times-circle fa-2x close-img" aria-hidden="true"></i></div-->
+				</div>
+				<p>By signing in, you are agreeing to <br>our <strong>Terms of Use</strong> and <strong>Privacy Policy</strong>.</p>
+				<button class="btn-com btn-pry btn-gap-2">SIGN UP</button>
+			</form>
+			<p>Or Sign up Using</p>
+			<div class="s-media">
+				<div><button class="btn-com btn-google">Google</button></div>
+				<div style="width:25px;"></div>
+				<div><button class="btn-com btn-fb">Facebook</button></div>
+			</div>
+		</div>
+	</body>
+</html>

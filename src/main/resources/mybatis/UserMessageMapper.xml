@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fundzforus.server.dao.mybatis.UserMessageMapper">
+    <resultMap id="messageResultMap" type="com.fundzforus.server.domain.Message">
+        <id column="MESSAGE_ID" property="id" jdbcType="INTEGER"/>
+        <result property="messageTitle" column="MESSAGE_TITLE" jdbcType="VARCHAR"/>
+        <result property="messageDescription" column="MESSAGE_DESCRIPTION" jdbcType="VARCHAR"/>
+        <result property="messageCategory" column="MESSAGE_CATEGORY" jdbcType="VARCHAR"/>
+        <result property="tenantId" column="TENANT_ID" jdbcType="VARCHAR"/>
+        <result property="createDateTime" column="CREATE_DATETIME" jdbcType="TIMESTAMP"/>
+        <result property="createdBy" column="CREATED_BY" jdbcType="VARCHAR"/>
+        <result property="updateDateTime" column="UPDATE_DATETIME" jdbcType="TIMESTAMP"/>
+        <result property="updatedBy" column="UPDATED_BY" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findMessagesByCategoryAndTenantId" resultMap="messageResultMap" parameterType="java.util.Map">
+        SELECT
+            MESSAGE_ID,
+            MESSAGE_TITLE,
+            MESSAGE_DESCRIPTION,
+            MESSAGE_CATEGORY,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_USER_MESSAGES
+        WHERE MESSAGE_CATEGORY = #{messageCategory, jdbcType=VARCHAR}
+        AND TENANT_ID = #{tenantId, jdbcType=VARCHAR}
+    </select>
+
+    <select id="findAllMessagesByTenantId" resultMap="messageResultMap" parameterType="java.util.Map">
+        SELECT
+            MESSAGE_ID,
+            MESSAGE_TITLE,
+            MESSAGE_DESCRIPTION,
+            MESSAGE_CATEGORY,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_USER_MESSAGES
+        WHERE
+            TENANT_ID = #{tenantId, jdbcType=VARCHAR}
+    </select>
+
+    <select id="findMessageByTitleAndTenantId" resultMap="messageResultMap" parameterType="java.util.Map">
+        SELECT
+            MESSAGE_ID,
+            MESSAGE_TITLE,
+            MESSAGE_DESCRIPTION,
+            MESSAGE_CATEGORY,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_USER_MESSAGES
+        WHERE MESSAGE_TITLE = #{messageTitle, jdbcType=VARCHAR}
+            AND TENANT_ID = #{tenantId, jdbcType=VARCHAR}
+    </select>
+
+    <select id="getMessageById" parameterType="java.util.Map" resultMap="messageResultMap">
+      SELECT
+            MESSAGE_ID,
+            MESSAGE_TITLE,
+            MESSAGE_DESCRIPTION,
+            MESSAGE_CATEGORY,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_USER_MESSAGES
+        WHERE MESSAGE_ID = #{id}
+   </select>
+
+    <update id="updateMessage" parameterType="com.fundzforus.server.domain.Message">
+      UPDATE TBL_USER_MESSAGES SET
+            MESSAGE_TITLE = #{messageTitle, jdbcType=VARCHAR},
+            MESSAGE_DESCRIPTION = #{messageDescription, jdbcType=VARCHAR},
+            MESSAGE_CATEGORY = #{messageCategory, jdbcType=VARCHAR},
+            TENANT_ID = #{tenantId, jdbcType=VARCHAR},
+            UPDATE_DATETIME = #{updateDateTime, jdbcType=TIMESTAMP},
+            UPDATED_BY = #{updatedBy, jdbcType=VARCHAR}
+      WHERE MESSAGE_ID = #{id, jdbcType=VARCHAR}
+   </update>
+
+    <insert id="insertMessage" parameterType="com.fundzforus.server.domain.Message">
+        INSERT INTO TBL_USER_MESSAGES (
+            MESSAGE_TITLE,
+            MESSAGE_DESCRIPTION,
+            MESSAGE_CATEGORY,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY)
+        VALUES(
+            #{messageTitle, jdbcType=VARCHAR},
+            #{messageDescription, jdbcType=VARCHAR},
+            #{messageCategory, jdbcType=VARCHAR},
+            #{tenantId, jdbcType=VARCHAR},
+            #{createDateTime, jdbcType=TIMESTAMP},
+            #{createdBy, jdbcType=VARCHAR},
+            #{updateDateTime, jdbcType=TIMESTAMP},
+            #{updatedBy, jdbcType=VARCHAR}
+        )
+    </insert>
+    <delete id="deleteMessageById" parameterType="java.util.Map">
+      DELETE FROM TBL_USER_MESSAGES WHERE MESSAGE_ID = #{id}
+   </delete>
+</mapper>

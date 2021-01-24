@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+    <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>FUNDZFORUS</title>
+</head>
+<body>
+<form action="#" th:action="@{/updateProgram(id=${userForm.newProgram.id})}" th:object="${userForm}" method="post">
+    <div class="sign-container part-left">
+        <i class="fa fa-chevron-left fa-lg part-left" aria-hidden="true" onclick="location.href='/programs'"></i>
+        <h1>Update a Program</h1>
+        <h1 th:text="*{newProgram.programName}">Add a Program</h1>
+        <input type="text" placeholder="Program Description" th:field="*{newProgram.programDescription}" class="sign-in-input">
+        <input type="text" placeholder="Program Details" th:field="*{newProgram.programDetails}" class="sign-in-input">
+        <input type="text" placeholder="01-Dec-20 01:00" th:field="*{newProgram.programDateTimeField}" class="sign-in-input">
+        <input type="text" placeholder="Program Image URL" th:field="*{newProgram.programImageUrl}" class="sign-in-input">
+        <input type="text" placeholder="Program Video URL" th:field="*{newProgram.programVideoUrl}" class="sign-in-input">
+        <input type="text" placeholder="Program Address" th:field="*{newProgram.programAddress}" class="sign-in-input">
+
+        <!--div class="add-img">
+            <div><i class="fa fa-plus fa-2x plus" aria-hidden="true"></i><br>Add Image</div>
+            <div class="add-logo"><i class="fa fa-times-circle fa-2x close-img" aria-hidden="true"></i></div>
+        </div-->
+        <br>
+
+    </div>
+
+    <div class="become-part">
+        <div>
+            <button class="btn-com btn-pry btn-gap-2">SUBMIT</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fundzforus.server.dao.mybatis.UserProgramMapper" >
+    <resultMap id="programResultMap" type="com.fundzforus.server.domain.Program" >
+        <id column="PROGRAM_ID" property="id" jdbcType="INTEGER" />
+        <result property="programName" column="PROGRAM_NAME" jdbcType="VARCHAR" />
+        <result property="programDescription" column="PROGRAM_DESCRIPTION" jdbcType="VARCHAR" />
+        <result property="programDetails" column="PROGRAM_DETAILS" jdbcType="VARCHAR" />
+        <result property="bookings" column="BOOKINGS" jdbcType="INTEGER" />
+        <result property="programDateTime" column="PROGRAM_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="programImageUrl" column="PROGRAM_IMG_URL" jdbcType="VARCHAR" />
+        <result property="programVideoUrl" column="PROGRAM_VIDEO_URL" jdbcType="VARCHAR" />
+        <result property="programAddress" column="PROGRAM_ADDRESS" jdbcType="VARCHAR" />
+        <result property="tenantId" column="TENANT_ID" jdbcType="INTEGER" />
+        <result property="createDateTime" column="CREATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="createdBy" column="CREATED_BY" jdbcType="VARCHAR" />
+        <result property="updateDateTime" column="UPDATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="updatedBy" column="UPDATED_BY" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="findTodayProgramsByTenantId" resultMap="programResultMap">
+        SELECT
+            PROGRAM_ID,
+            PROGRAM_NAME,
+            PROGRAM_DESCRIPTION,
+            PROGRAM_DETAILS,
+            BOOKINGS,
+            PROGRAM_DATETIME,
+            PROGRAM_IMG_URL,
+            PROGRAM_VIDEO_URL,
+            PROGRAM_ADDRESS,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PROGRAM WHERE DATE(PROGRAM_DATETIME) = CURDATE()
+        AND TENANT_ID = #{tenantId, jdbcType=VARCHAR}
+    </select>
+
+    <select id="findTomorrowProgramsByTenantId" resultMap="programResultMap">
+        SELECT
+            PROGRAM_ID,
+            PROGRAM_NAME,
+            PROGRAM_DESCRIPTION,
+            PROGRAM_DETAILS,
+            BOOKINGS,
+            PROGRAM_DATETIME,
+            PROGRAM_IMG_URL,
+            PROGRAM_VIDEO_URL,
+            PROGRAM_ADDRESS,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PROGRAM WHERE DATE(PROGRAM_DATETIME) = DATE_ADD(CURDATE(), INTERVAL 1 DAY)
+        AND TENANT_ID = #{tenantId, jdbcType=VARCHAR}
+    </select>
+
+    <select id="findOneWeekProgramsByTenantId" resultMap="programResultMap">
+        SELECT
+            PROGRAM_ID,
+            PROGRAM_NAME,
+            PROGRAM_DESCRIPTION,
+            PROGRAM_DETAILS,
+            BOOKINGS,
+            PROGRAM_DATETIME,
+            PROGRAM_IMG_URL,
+            PROGRAM_VIDEO_URL,
+            PROGRAM_ADDRESS,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PROGRAM WHERE DATE(PROGRAM_DATETIME) >= CURDATE() AND DATE(PROGRAM_DATETIME) &lt;= DATE_ADD(CURDATE(), INTERVAL 7 DAY)
+        AND TENANT_ID = #{tenantId, jdbcType=VARCHAR}
+    </select>
+
+    <select id="findAllProgramsByTenantId" resultMap="programResultMap" parameterType="java.util.Map">
+        SELECT
+            PROGRAM_ID,
+            PROGRAM_NAME,
+            PROGRAM_DESCRIPTION,
+            PROGRAM_DETAILS,
+            BOOKINGS,
+            PROGRAM_DATETIME,
+            PROGRAM_IMG_URL,
+            PROGRAM_VIDEO_URL,
+            PROGRAM_ADDRESS,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PROGRAM
+        WHERE
+            TENANT_ID = #{tenantId, jdbcType=VARCHAR}
+    </select>
+
+    <select id="findProgramsByProgramName" resultMap="programResultMap" parameterType="java.util.Map">
+        SELECT
+            PROGRAM_ID,
+            PROGRAM_NAME,
+            PROGRAM_DESCRIPTION,
+            PROGRAM_DETAILS,
+            BOOKINGS,
+            PROGRAM_DATETIME,
+            PROGRAM_IMG_URL,
+            PROGRAM_VIDEO_URL,
+            PROGRAM_ADDRESS,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PROGRAM
+        WHERE
+            PROGRAM_NAME = #{programName, jdbcType=VARCHAR}
+            AND TENANT_ID = #{tenantId, jdbcType=VARCHAR}
+    </select>
+
+    <select id = "getProgramById" parameterType = "java.util.Map" resultMap = "programResultMap">
+      SELECT
+            PROGRAM_ID,
+            PROGRAM_NAME,
+            PROGRAM_DESCRIPTION,
+            PROGRAM_DETAILS,
+            BOOKINGS,
+            PROGRAM_DATETIME,
+            PROGRAM_IMG_URL,
+            PROGRAM_VIDEO_URL,
+            PROGRAM_ADDRESS,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PROGRAM
+        WHERE PROGRAM_ID = #{id}
+   </select>
+
+    <update id = "updateProgram" parameterType = "com.fundzforus.server.domain.Program">
+      UPDATE TBL_PROGRAM SET
+            PROGRAM_NAME = #{programName, jdbcType=VARCHAR},
+            PROGRAM_DESCRIPTION = #{programDescription, jdbcType=VARCHAR},
+            PROGRAM_DETAILS = #{programDetails, jdbcType=VARCHAR},
+            BOOKINGS = #{bookings, jdbcType=VARCHAR},
+            PROGRAM_DATETIME = #{programDateTime, jdbcType=TIMESTAMP},
+            PROGRAM_IMG_URL = #{programImageUrl, jdbcType=VARCHAR},
+            PROGRAM_VIDEO_URL = #{programVideoUrl, jdbcType=VARCHAR},
+            PROGRAM_ADDRESS = #{programAddress, jdbcType=VARCHAR},
+            TENANT_ID = #{tenantId, jdbcType=INTEGER},
+            UPDATE_DATETIME = CURRENT_TIMESTAMP(),
+            UPDATED_BY = #{updatedBy, jdbcType=VARCHAR}
+      WHERE PROGRAM_ID = #{id, jdbcType=VARCHAR}
+   </update>
+
+    <insert id="insertProgram" parameterType="com.fundzforus.server.domain.Program">
+        INSERT INTO TBL_PROGRAM (
+            PROGRAM_NAME,
+            PROGRAM_DESCRIPTION,
+            PROGRAM_DETAILS,
+            BOOKINGS,
+            PROGRAM_DATETIME,
+            PROGRAM_IMG_URL,
+            PROGRAM_VIDEO_URL,
+            PROGRAM_ADDRESS,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY)
+        VALUES(
+            #{programName, jdbcType=VARCHAR},
+            #{programDescription, jdbcType=VARCHAR},
+            #{programDetails, jdbcType=VARCHAR},
+            #{bookings, jdbcType=INTEGER},
+            #{programDateTime, jdbcType=TIMESTAMP},
+            #{programImageUrl, jdbcType=VARCHAR},
+            #{programVideoUrl, jdbcType=VARCHAR},
+            #{programAddress, jdbcType=VARCHAR},
+            #{tenantId, jdbcType=INTEGER},
+            CURRENT_TIMESTAMP(),
+            #{createdBy, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP(),
+            #{updatedBy, jdbcType=VARCHAR}
+        )
+    </insert>
+    <delete id = "deleteProgramById" parameterType = "java.util.Map">
+      DELETE FROM TBL_PROGRAM WHERE PROGRAM_ID = #{id}
+   </delete>
+</mapper>

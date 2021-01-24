@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fundzforus.server.dao.mybatis.UserMapper" >
+    <resultMap id="userResultMap" type="com.fundzforus.server.domain.User" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result property="password" column="PASSWORD" jdbcType="VARCHAR" />
+        <result property="firstName" column="FIRST_NAME" jdbcType="VARCHAR" />
+        <result property="lastName" column="LAST_NAME" jdbcType="VARCHAR" />
+        <result property="phone" column="PHONE" jdbcType="VARCHAR" />
+        <result property="email" column="EMAIL" jdbcType="VARCHAR" />
+        <result property="location" column="LOCATION" jdbcType="VARCHAR" />
+        <result property="imageUrl" column="IMG_URL" jdbcType="VARCHAR" />
+        <result property="receiveNotification" column="RECEIVE_NOTIFICATION" jdbcType="VARCHAR" />
+        <result property="roleId" column="ROLE_ID" jdbcType="INTEGER" />
+        <result property="tenantId" column="TENANT_ID" jdbcType="INTEGER" />
+        <result property="createDateTime" column="CREATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="createdBy" column="CREATED_BY" jdbcType="VARCHAR" />
+        <result property="updateDateTime" column="UPDATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="updatedBy" column="UPDATED_BY" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="findAllUsers" resultMap="userResultMap">
+        SELECT
+            ID,
+            PASSWORD,
+            FIRST_NAME,
+            LAST_NAME,
+            PHONE,
+            EMAIL,
+            LOCATION,
+            IMG_URL,
+            RECEIVE_NOTIFICATION,
+            ROLE_ID,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_USER
+    </select>
+
+    <select id="findUserByEmailAndPassword" resultMap="userResultMap" parameterType="com.fundzforus.server.domain.User">
+        SELECT
+            ID,
+            PASSWORD,
+            FIRST_NAME,
+            LAST_NAME,
+            PHONE,
+            EMAIL,
+            LOCATION,
+            IMG_URL,
+            RECEIVE_NOTIFICATION,
+            ROLE_ID,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_USER
+        WHERE
+            EMAIL = #{email, jdbcType=VARCHAR} AND
+            BINARY PASSWORD = #{password, jdbcType=VARCHAR}
+    </select>
+
+    <select id="findUserWithEmail" resultMap="userResultMap" parameterType="java.util.Map">
+        SELECT
+            ID,
+            PASSWORD,
+            FIRST_NAME,
+            LAST_NAME,
+            PHONE,
+            EMAIL,
+            LOCATION,
+            IMG_URL,
+            RECEIVE_NOTIFICATION,
+            ROLE_ID,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_USER
+        WHERE
+            EMAIL = #{email, jdbcType=VARCHAR}
+    </select>
+
+    <select id = "getById" parameterType="java.util.Map" resultMap = "userResultMap">
+      SELECT
+            ID,
+            PASSWORD,
+            FIRST_NAME,
+            LAST_NAME,
+            PHONE,
+            EMAIL,
+            LOCATION,
+            IMG_URL,
+            RECEIVE_NOTIFICATION,
+            ROLE_ID,
+            TENANT_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_USER WHERE ID = #{id}
+   </select>
+
+    <update id = "updatePassword" parameterType = "com.fundzforus.server.domain.User">
+      UPDATE TBL_USER SET
+            PASSWORD = #{password, jdbcType=VARCHAR},
+            OLD_PASSWORD = #{oldPassword, jdbcType=VARCHAR},
+            UPDATE_DATETIME = CURRENT_TIMESTAMP(),
+            UPDATED_BY = #{updatedBy, jdbcType=VARCHAR}
+      WHERE EMAIL = #{email, jdbcType=VARCHAR}
+   </update>
+
+    <update id = "updateUser" parameterType = "com.fundzforus.server.domain.User">
+      UPDATE TBL_USER SET
+            FIRST_NAME = #{firstName, jdbcType=VARCHAR},
+            LAST_NAME = #{lastName, jdbcType=VARCHAR},
+            PHONE = #{phone, jdbcType=VARCHAR},
+            EMAIL = #{email, jdbcType=VARCHAR},
+            ROLE_ID = #{roleId, jdbcType=INTEGER},
+            IMG_URL = #{imageUrl, jdbcType=INTEGER},
+            TENANT_ID = #{tenantId, jdbcType=INTEGER},
+            LOCATION = #{location, jdbcType=VARCHAR},
+            RECEIVE_NOTIFICATION = #{receiveNotification, jdbcType=VARCHAR},
+            UPDATE_DATETIME = CURRENT_TIMESTAMP(),
+            UPDATED_BY = #{updatedBy, jdbcType=VARCHAR}
+      WHERE ID = #{id}
+   </update>
+
+    <delete id = "deleteUserById" parameterType = "java.util.Map">
+      DELETE FROM TBL_USER WHERE ID = #{id}
+   </delete>
+
+    <insert id="insertUser" parameterType="com.fundzforus.server.domain.User">
+        INSERT INTO TBL_USER (
+            PASSWORD,
+            FIRST_NAME,
+            LAST_NAME,
+            PHONE,
+            EMAIL,
+            ROLE_ID,
+            TENANT_ID,
+            LOCATION,
+            IMG_URL,
+            RECEIVE_NOTIFICATION,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY)
+        VALUES(
+            #{password, jdbcType=VARCHAR},
+            #{firstName, jdbcType=VARCHAR},
+            #{lastName, jdbcType=VARCHAR},
+            #{phone, jdbcType=VARCHAR},
+            #{email, jdbcType=VARCHAR},
+            #{roleId, jdbcType=INTEGER},
+            #{tenantId, jdbcType=INTEGER},
+            #{location, jdbcType=VARCHAR},
+            #{imageUrl, jdbcType=VARCHAR},
+            #{receiveNotification, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP(),
+            #{createdBy, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP(),
+            #{updatedBy, jdbcType=VARCHAR}
+        )
+  </insert>
+</mapper>

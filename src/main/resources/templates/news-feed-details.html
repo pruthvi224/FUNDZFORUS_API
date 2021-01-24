@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+    <link rel="stylesheet" type="text/css" href="/css/index4.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>FUNDZFORUS</title>
+</head>
+<body>
+
+<div class="rsvp-head">
+    <i class="fa fa-chevron-left fa-lg" aria-hidden="true" onclick="location.href='/newsfeed'"></i>
+    <img src="/img/rsvpnews-feed-img-1.png">
+</div>
+<div class="bg-div">
+    <div class="rsvp-container">
+        <div class="feed-info">
+            <div><img src="/img/user-pic.png"></div>
+            <h4 th:text="${userForm.newsReader.publishedBy}"></h4>
+            <p th:text="${userForm.newsReader.createDateTimeStr}"><i class="fa fa-calendar-o" aria-hidden="true"></i></p>
+        </div>
+        <p th:text="${userForm.newsReader.description}"></p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fundzforus.server.dao.mybatis.UserVideoMapper" >
+    <resultMap id="userVideoCommentResultMap" type="com.fundzforus.server.domain.UserVideoComment" >
+        <id column="USER_VIDEO_ID" property="id" jdbcType="INTEGER" />
+        <result property="videoComment" column="VIDEO_COMMENT" jdbcType="VARCHAR" />
+        <result property="videoId" column="VIDEO_ID" jdbcType="INTEGER" />
+        <result property="createDateTime" column="CREATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="createdBy" column="CREATED_BY" jdbcType="VARCHAR" />
+        <result property="updateDateTime" column="UPDATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="updatedBy" column="UPDATED_BY" jdbcType="VARCHAR" />
+    </resultMap>
+
+<!--    <select id="findAllUserVideosComments" resultMap="userVideoCommentResultMap">-->
+<!--        SELECT-->
+<!--            USER_VIDEO_ID,-->
+<!--            VIDEO_COMMENT,-->
+<!--            VIDEO_ID,-->
+<!--            CREATE_DATETIME,-->
+<!--            CREATED_BY,-->
+<!--            UPDATE_DATETIME,-->
+<!--            UPDATED_BY-->
+<!--        FROM TBL_USER_VIDEO-->
+<!--    </select>-->
+
+<!--    <select id="findUserVideosByUserId" resultMap="userVideoCommentResultMap" parameterType="java.util.Map">-->
+<!--        SELECT-->
+<!--            VIDEO_ID,-->
+<!--            VIDEO_NAME,-->
+<!--            VIDEO_DESCRIPTION,-->
+<!--            VIDEO_URL,-->
+<!--            USER_ID,-->
+<!--            CREATE_DATETIME,-->
+<!--            CREATED_BY,-->
+<!--            UPDATE_DATETIME,-->
+<!--            UPDATED_BY-->
+<!--        FROM TBL_USER_VIDEO-->
+<!--        WHERE-->
+<!--            USER_ID = #{userId, jdbcType=VARCHAR}-->
+<!--    </select>-->
+
+<!--    <select id = "getUserVideoById" parameterType="java.util.Map" resultMap = "userVideoCommentResultMap">-->
+<!--      SELECT-->
+<!--            VIDEO_ID,-->
+<!--            VIDEO_NAME,-->
+<!--            VIDEO_DESCRIPTION,-->
+<!--            VIDEO_URL,-->
+<!--            USER_ID,-->
+<!--            CREATE_DATETIME,-->
+<!--            CREATED_BY,-->
+<!--            UPDATE_DATETIME,-->
+<!--            UPDATED_BY-->
+<!--        FROM TBL_USER_VIDEO-->
+<!--        WHERE VIDEO_ID = #{id}-->
+<!--   </select>-->
+
+<!--    <update id = "updateUserVideo" parameterType = "com.fundzforus.server.domain.UserVideo">-->
+<!--      UPDATE TBL_USER_VIDEO SET-->
+<!--            VIDEO_NAME = #{videoName, jdbcType=VARCHAR},-->
+<!--            VIDEO_DESCRIPTION = #{videoDescription, jdbcType=VARCHAR},-->
+<!--            VIDEO_URL = #{videoURL, jdbcType=VARCHAR},-->
+<!--            USER_ID = #{userId, jdbcType=VARCHAR},-->
+<!--            UPDATE_DATETIME = CURRENT_TIMESTAMP(),-->
+<!--            UPDATED_BY = #{updatedBy, jdbcType=VARCHAR}-->
+<!--      WHERE VIDEO_ID = #{id, jdbcType=VARCHAR}-->
+<!--   </update>-->
+
+<!--    <insert id="insertUserVideo" parameterType="com.fundzforus.server.domain.UserVideo">-->
+<!--        INSERT INTO TBL_USER_VIDEO (-->
+<!--            VIDEO_NAME,-->
+<!--            VIDEO_DESCRIPTION,-->
+<!--            VIDEO_URL,-->
+<!--            USER_ID,-->
+<!--            CREATE_DATETIME,-->
+<!--            CREATED_BY,-->
+<!--            UPDATE_DATETIME,-->
+<!--            UPDATED_BY)-->
+<!--        VALUES(-->
+<!--            #{videoName, jdbcType=VARCHAR},-->
+<!--            #{videoDescription, jdbcType=VARCHAR},-->
+<!--            #{videoURL, jdbcType=VARCHAR},-->
+<!--            #{userId, jdbcType=VARCHAR},-->
+<!--            CURRENT_TIMESTAMP(),-->
+<!--            #{createdBy, jdbcType=VARCHAR},-->
+<!--            CURRENT_TIMESTAMP(),-->
+<!--            #{updatedBy, jdbcType=VARCHAR}-->
+<!--        )-->
+<!--    </insert>-->
+
+<!--    <delete id = "deleteUserVideoById" parameterType = "java.util.Map">-->
+<!--        DELETE FROM TBL_USER_VIDEO WHERE VIDEO_ID = #{id}-->
+<!--    </delete>-->
+</mapper>

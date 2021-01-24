@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>FUNDZFORUS</title>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+    <link rel="stylesheet" type="text/css" href="/css/index3.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="sub-page-header-back">
+    <h1><a th:href="@{/programDetails(id=${userForm.program.id})}"><i class="fa fa-chevron-left fa-lg" aria-hidden="true"></i></a>RSVP Confirmed</h1>
+</div>
+<!-- tabs starts-->
+<div class="tab-text">
+    <div class="rsvp-confirmed">
+        <img src="/img/rsvp-confirm-1.png">
+        <h4 th:text="${userForm.program.programName}">Mauris imperdiet orci dapibus</h4>
+        <div class="rsvp-confirmed-info">
+            <div>
+                <label>Date Time</label><br>
+                <p th:text="${userForm.program.programDateTimeField}">Sat, Jan 10, 2020</p>
+            </div>
+            <!--div>
+                <label>Time</label>
+                <p th:text="${userForm.program.programTime}">10:30 am</p>
+            </div-->
+        </div>
+        <div class="rsvp-b">
+            <label>Place</label>
+            <p th:text="${userForm.program.programAddress}">Stanislaus, California</p>
+        </div>
+        <div class="rsvp-line"></div>
+        <div class="rsvp-b">
+            <label>Booking ID</label>
+            <h3 th:text="${userForm.programBooking.id}">5487 87496 54765 8874</h3>
+        </div>
+    </div>
+    <button class="btn-com btn-pry" onclick="location.href='/programs'">Ok, Got it</button>
+</div>
+</body>
+</html>

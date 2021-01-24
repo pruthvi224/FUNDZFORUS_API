@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fundzforus.server.dao.mybatis.PartnerMapper" >
+    <resultMap id="partnerResultMap" type="com.fundzforus.server.domain.Partner" >
+        <id column="PARTNER_ID" property="id" jdbcType="INTEGER" />
+        <result property="partnerName" column="PARTNER_NAME" jdbcType="VARCHAR" />
+        <result property="description" column="DESCRIPTION" jdbcType="VARCHAR" />
+        <result property="logoURL" column="LOGO_URL" jdbcType="VARCHAR" />
+        <result property="contactName" column="CONTACT_NAME" jdbcType="VARCHAR" />
+        <result property="contactPhone" column="CONTACT_PHONE" jdbcType="VARCHAR" />
+        <result property="contactAddress" column="CONTACT_ADDRESS" jdbcType="VARCHAR" />
+        <result property="contactEmail" column="CONTACT_EMAIL" jdbcType="VARCHAR" />
+        <result property="createDateTime" column="CREATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="createdBy" column="CREATED_BY" jdbcType="VARCHAR" />
+        <result property="updateDateTime" column="UPDATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="updatedBy" column="UPDATED_BY" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="findAllPartners" resultMap="partnerResultMap">
+        SELECT
+            PARTNER_ID,
+            PARTNER_NAME,
+            DESCRIPTION,
+            LOGO_URL,
+            CONTACT_NAME,
+            CONTACT_PHONE,
+            CONTACT_ADDRESS,
+            CONTACT_EMAIL,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PARTNER
+    </select>
+
+    <select id="findPartnerWithPartnerName" resultMap="partnerResultMap" parameterType="java.util.Map">
+        SELECT
+            PARTNER_ID,
+            PARTNER_NAME,
+            DESCRIPTION,
+            LOGO_URL,
+            CONTACT_NAME,
+            CONTACT_PHONE,
+            CONTACT_ADDRESS,
+            CONTACT_EMAIL,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PARTNER
+        WHERE
+            PARTNER_NAME = #{partnerName, jdbcType=VARCHAR}
+    </select>
+
+    <select id = "getPartnerById" parameterType="java.util.Map" resultMap = "partnerResultMap">
+      SELECT
+            PARTNER_ID,
+            PARTNER_NAME,
+            DESCRIPTION,
+            LOGO_URL,
+            CONTACT_NAME,
+            CONTACT_PHONE,
+            CONTACT_ADDRESS,
+            CONTACT_EMAIL,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PARTNER
+        WHERE PARTNER_ID = #{id}
+   </select>
+
+    <update id = "updatePartner" parameterType = "com.fundzforus.server.domain.Partner">
+      UPDATE TBL_PARTNER SET
+            PARTNER_NAME = #{partnerName, jdbcType=VARCHAR},
+            DESCRIPTION = #{description, jdbcType=VARCHAR},
+            LOGO_URL = #{logoURL, jdbcType=VARCHAR},
+            CONTACT_NAME = #{contactName, jdbcType=VARCHAR},
+            CONTACT_ADDRESS = #{contactAddress, jdbcType=VARCHAR},
+            CONTACT_PHONE = #{contactPhone, jdbcType=VARCHAR},
+            CONTACT_EMAIL = #{contactEmail, jdbcType=VARCHAR},
+            UPDATE_DATETIME = CURRENT_TIMESTAMP(),
+            UPDATED_BY = #{updatedBy, jdbcType=VARCHAR}
+      WHERE PARTNER_ID = #{id}
+   </update>
+
+    <insert id="insertPartner" parameterType="com.fundzforus.server.domain.Partner">
+        INSERT INTO TBL_PARTNER (
+            PARTNER_NAME,
+            DESCRIPTION,
+            LOGO_URL,
+            CONTACT_NAME,
+            CONTACT_ADDRESS,
+            CONTACT_PHONE,
+            CONTACT_EMAIL,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY)
+        VALUES(
+            #{partnerName, jdbcType=VARCHAR},
+            #{description, jdbcType=VARCHAR},
+            #{logoURL, jdbcType=VARCHAR},
+            #{contactName, jdbcType=VARCHAR},
+            #{contactAddress, jdbcType=VARCHAR},
+            #{contactPhone, jdbcType=VARCHAR},
+            #{contactEmail, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP(),
+            CREATED_BY = #{createdBy, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP(),
+            UPDATED_BY = #{updatedBy, jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <delete id = "deletePartnerById" parameterType = "java.util.Map">
+      DELETE FROM TBL_PARTNER WHERE PARTNER_ID = #{id}
+   </delete>
+</mapper>

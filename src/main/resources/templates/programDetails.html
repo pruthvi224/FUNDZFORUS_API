@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+    <link rel="stylesheet" type="text/css" href="/css/index3.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>FUNDZFORUS Program Details</title>
+</head>
+<body>
+<div class="rsvp-head">
+    <i class="fa fa-chevron-left fa-lg" aria-hidden="true" onclick="location.href='/programs'"></i>
+    <img src="/img/rsvp.png">
+</div>
+<div class="bg-div">
+    <div class="strectch-band"></div>
+    <div class="rsvp-container">
+        <span th:text="${userForm.program.programDateTimeField}"></span>
+        <h2 th:text="${userForm.program.programName}"></h2>
+        <p th:text="${userForm.program.bookings}"><i class="fa fa-users fa-lg" aria-hidden="true"></i></p>
+        <p th:text="${userForm.program.programDescription}"><i class="fa fa-location-arrow fa-2x" aria-hidden="true"></i></p>
+        <h4>Details</h4>
+        <p th:text="${userForm.program.programDetails}"></p>
+        <div class="flex-container-rsvp">
+            <div>
+                <iframe width="90%" height="315" th:src="${userForm.program.programVideoUrl}" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+        </div>
+        <form method="get" action="program-confirmation">
+            <input type="hidden" name="id" th:value="${userForm.program.id}">
+            <button class="btn-com btn-pry ">RSVP</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

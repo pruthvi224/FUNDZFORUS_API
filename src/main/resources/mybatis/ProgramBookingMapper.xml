@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fundzforus.server.dao.mybatis.UserProgramBookingMapper" >
+    <resultMap id="programBookingResultMap" type="com.fundzforus.server.domain.ProgramBooking" >
+        <id column="BOOKING_ID" property="id" jdbcType="INTEGER" />
+        <result property="programId" column="PROGRAM_ID" jdbcType="INTEGER" />
+        <result property="numberOfPersons" column="NUMBER_OF_PERSONS" jdbcType="INTEGER" />
+        <result property="userId" column="USER_ID" jdbcType="INTEGER" />
+        <result property="createDateTime" column="CREATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="createdBy" column="CREATED_BY" jdbcType="VARCHAR" />
+        <result property="updateDateTime" column="UPDATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="updatedBy" column="UPDATED_BY" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="findAllProgramBookings" resultMap="programBookingResultMap">
+        SELECT
+            BOOKING_ID,
+            PROGRAM_ID,
+            NUMBER_OF_PERSONS,
+            USER_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PROGRAM_BOOKINGS
+    </select>
+
+    <select id="findProgramBookingByUserIdAndProgramId" resultMap="programBookingResultMap" parameterType="java.util.Map">
+        SELECT
+            BOOKING_ID,
+            PROGRAM_ID,
+            NUMBER_OF_PERSONS,
+            USER_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PROGRAM_BOOKINGS
+        WHERE
+            USER_ID = #{userId, jdbcType=VARCHAR} AND
+            PROGRAM_ID = #{programId, jdbcType=VARCHAR}
+    </select>
+
+    <select id="findProgramBookingsByUserId" resultMap="programBookingResultMap" parameterType="java.util.Map">
+        SELECT
+            BOOKING_ID,
+            PROGRAM_ID,
+            NUMBER_OF_PERSONS,
+            USER_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PROGRAM_BOOKINGS
+        WHERE
+            USER_ID = #{userId, jdbcType=VARCHAR}
+    </select>
+
+    <select id="findProgramBookingsByProgramId" resultMap="programBookingResultMap" parameterType="java.util.Map">
+        SELECT
+            BOOKING_ID,
+            PROGRAM_ID,
+            NUMBER_OF_PERSONS,
+            USER_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PROGRAM_BOOKINGS
+        WHERE
+            PROGRAM_ID = #{programId, jdbcType=VARCHAR}
+    </select>
+
+    <select id = "getProgramBookingById" parameterType = "java.util.Map" resultMap = "programBookingResultMap">
+      SELECT
+            BOOKING_ID,
+            PROGRAM_ID,
+            NUMBER_OF_PERSONS,
+            USER_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_PROGRAM_BOOKINGS
+        WHERE PROGRAM_ID = #{id}
+   </select>
+
+    <update id = "updateProgramBooking" parameterType = "com.fundzforus.server.domain.ProgramBooking">
+      UPDATE TBL_PROGRAM_BOOKINGS SET
+            PROGRAM_ID = #{programId, jdbcType=INTEGER},
+            NUMBER_OF_PERSONS = #{numberOfPersons, jdbcType=INTEGER},
+            USER_ID = #{userId, jdbcType=INTEGER},
+            UPDATE_DATETIME = CURRENT_TIMESTAMP(),
+            UPDATED_BY = #{updatedBy, jdbcType=VARCHAR}
+      WHERE BOOKING_ID = #{id, jdbcType=VARCHAR}
+   </update>
+
+    <insert id="insertProgramBooking" parameterType="com.fundzforus.server.domain.ProgramBooking">
+        INSERT INTO TBL_PROGRAM_BOOKINGS (
+            PROGRAM_ID,
+            NUMBER_OF_PERSONS,
+            USER_ID,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY)
+        VALUES(
+            #{programId, jdbcType=INTEGER},
+            #{numberOfPersons, jdbcType=INTEGER},
+            #{userId, jdbcType=INTEGER},
+            CURRENT_TIMESTAMP(),
+            #{createdBy, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP(),
+            #{updatedBy, jdbcType=VARCHAR}
+        )
+    </insert>
+    <delete id = "deleteProgramBookingById" parameterType = "java.util.Map">
+      DELETE FROM TBL_PROGRAM_BOOKINGS WHERE ID = #{id}
+   </delete>
+</mapper>

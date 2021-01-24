@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>FUNDZFORUS</title>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+    <link rel="stylesheet" type="text/css" href="/css/index3.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        $(document).ready(function () {
+            $("#hide").click(function () {
+                $("#lnav").hide();
+            });
+            $("#show").click(function () {
+                $("#lnav").show();
+            });
+
+
+            $("#phide").click(function () {
+                $("#profile").hide();
+            });
+            $("#pshow").click(function () {
+                $("#profile").show();
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="lnav" class="left-nav">
+    <div class="vertical-menu">
+        <a href="/videos"><i class="fa fa-play" aria-hidden="true"></i>Videos</a>
+        <a href="/programs"><i class="fa fa-calendar-o" aria-hidden="true"></i>Programs </a>
+        <a href="/messages?category=all"><i class="fa fa-file-text-o" aria-hidden="true"></i>Message Board</a>
+        <a><i class="fa fa-list-alt" aria-hidden="true"></i>News Feed</a>
+        <a href="/partners"><i class="fa fa-handshake-o" aria-hidden="true"></i>Partners</a>
+    </div>
+    <div class="close-nav">
+        <a href="#" id="hide"> <i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+</div>
+
+<div id="profile" class="profile-block">
+    <div class="profile-close">
+        <a id="phide">
+            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div style="text-align: right;
+    color: #fff;
+    margin-right: 40px;
+    padding: 0 !important;
+    margin-top: -9px;">
+        <i class="fa fa-caret-up fa-2x" aria-hidden="true"></i>
+    </div>
+    <div class="user-profile">
+        <div class="user-pic">
+            <img th:src="*{userForm.imageUrl}" width="139px">
+        </div>
+		<form style="overflow:scroll;min-height:400px; max-height:1000px" th:object="${userForm}">
+			<h1 th:text="*{firstName + ' ' + lastName}">Victor Niculici</h1>
+			<label for="fname">First Name</label>
+			<input type="text" id="fname" name="fname" th:field="*{firstName}">
+			<label for="fname">Email</label>
+			<input type="text" id="email" name="email" th:field="*{email}">
+			<label for="fname">Location</label>
+			<input type="text" id="location" name="location" th:field="*{location}">
+			<label for="fname">Receive notifications</label>
+			<input type="text" id="receiveNotification" name="receiveNotification" th:field="*{receiveNotification}">
+		</form>
+		<form method="get" action="/logout">
+			<button class="btn-com btn-logout btn-profile">Logout</button>
+		</form>
+		<form method="get" action="/editprofile">
+			<button class="btn-com btn-edit btn-profile">Edit Profile</button>
+		</form>
+    </div>
+</div>
+
+<div class="sub-page-header">
+    <div class="header-nav">
+        <div style="flex-grow: 8">
+            <a id="show">
+                <i class="fa fa-bars fa-2x nav-but" aria-hidden="true"></i></a>
+        </div>
+        <div class="head-nav-but">
+            <i class="fa fa-bell head-bell fa-lg" aria-hidden="true"></i>
+        </div>
+        <div class="head-nav-but">
+            <a id="pshow">
+                <i class="fa fa-user-circle head-user fa-lg" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+    <h1>Message Board</h1>
+    <ul class="nav nav-tabs">
+        <li><a href="/messages?category=all">For You</a></li>
+        <li><a href="/messages?category=one">Category1</a></li>
+        <li class="active">Category2</li>
+        <li><a href="/messages?category=three">Category3</a></li>
+    </ul>
+</div>
+<!-- tabs starts-->
+<div class="tab-content tab-text">
+    <div id="home" class="tab-pane fade">
+        <!--div class="messege-block" th:each="message: ${userForm.messages}">
+            <p th:text="${message.messageDescription}">Sed a magna semper, porta purus eu, ullamcorper ligula. Nam sit amet consectetur sapien. Etiam dui ipsum,
+                viverra vel turpis ut, dignissim elementum mauris. Sed dapibus auctor scelerisque. </p>
+            <button class="messege-but">Delete a Message</button>
+        </div-->
+    </div>
+
+    <div id="menu1" class="tab-pane fade">
+        <!--div class="messege-block" th:each="message: ${userForm.messages}">
+            <p th:text="${message.messageDescription}">Sed a magna semper, porta purus eu, ullamcorper ligula. Nam sit amet consectetur sapien. Etiam dui ipsum,
+                viverra vel turpis ut, dignissim elementum mauris. Sed dapibus auctor scelerisque. </p>
+            <button class="messege-but">Delete a Message</button>
+        </div-->
+    </div>
+
+    <div id="menu2" class="tab-pane fade in active ">
+        <div class="messege-block" th:each="message: ${userForm.messages}">
+            <p th:text="${message.messageDescription}">Sed a magna semper, porta purus eu, ullamcorper ligula. Nam sit amet consectetur sapien. Etiam dui ipsum,
+                viverra vel turpis ut, dignissim elementum mauris. Sed dapibus auctor scelerisque. </p>
+            <a class="messege-but" th:href="@{/deleteMessage(id=${message.id},category='two')}" href="">Delete a Message</a>
+        </div>
+    </div>
+
+    <div id="menu3" class="tab-pane fade">
+        <!--div class="messege-block" th:each="message: ${userForm.messages}">
+            <p th:text="${message.messageDescription}">Sed a magna semper, porta purus eu, ullamcorper ligula. Nam sit amet consectetur sapien. Etiam dui ipsum,
+                viverra vel turpis ut, dignissim elementum mauris. Sed dapibus auctor scelerisque. </p>
+            <button class="messege-but">Delete a Message</button>
+        </div-->
+    </div>
+</div>
+<!-- tabs ends -->
+<div class="partners-button">
+    <button class="messege-but" onclick="location.href='/newMessage'">Add a Message</button>
+</div>
+<div id="footer">
+    <div class="bottom-icons">
+        <i class="fa fa-play" aria-hidden="true" onclick="location.href='/home'"></i>
+        <i class="fa fa-calendar-o" aria-hidden="true" onclick="location.href='/programs'"></i>
+        <i class="fa fa-file-text-o" aria-hidden="true" onclick="location.href='/messages?category=all'"></i>
+        <i class="fa fa-list-alt bnav-active" aria-hidden="true" onclick="location.href='/newsfeed'"></i>
+        <i class="fa fa-handshake-o " aria-hidden="true" onclick="location.href='/partners'"></i>
+    </div>
+    <div class="bottom-slider">
+        <hr>
+    </div>
+</div>
+
+</div>
+
+
+</body>
+</html>

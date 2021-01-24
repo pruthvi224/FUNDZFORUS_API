@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fundzforus.server.dao.mybatis.NEWSMapper">
+	<resultMap id="newsResultMap"
+		type="com.fundzforus.server.domain.NewsReader">
+		<id column="NEWS_ID" property="id" jdbcType="INTEGER" />
+		<result property="title" column="NEWS_TITLE" jdbcType="VARCHAR" />
+		<result property="category" column="NEWS_CATEGORY" jdbcType="VARCHAR" />
+		<result property="description" column="NEWS_DESCRIPTION" jdbcType="VARCHAR" />
+		<result property="imageURL" column="NEWS_IMG_URL" jdbcType="VARCHAR" />
+		<result property="pdfURL" column="NEWS_PDF_URL" jdbcType="VARCHAR" />
+		<result property="videoURL" column="NEWS_VIDEO_URL" jdbcType="VARCHAR" />
+		<result property="publishedBy" column="PUBLISHED_BY" jdbcType="VARCHAR" />
+		<result property="createDateTime" column="CREATE_DATETIME" jdbcType="TIMESTAMP" />
+		<result property="createdBy" column="CREATED_BY" jdbcType="VARCHAR" />
+		<result property="updateDateTime" column="UPDATE_DATETIME" jdbcType="TIMESTAMP" />
+		<result property="updatedBy" column="UPDATED_BY" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="findAllNEWS" resultMap="newsResultMap">
+		SELECT
+		NEWS_ID,
+		NEWS_TITLE,
+		NEWS_CATEGORY,
+		NEWS_DESCRIPTION,
+		NEWS_IMG_URL,
+		NEWS_PDF_URL,
+		NEWS_VIDEO_URL,
+		PUBLISHED_BY,
+		CREATE_DATETIME,
+		CREATED_BY,
+		UPDATE_DATETIME,
+		UPDATED_BY
+		FROM TBL_NEWS_READER
+	</select>
+
+	<select id="getNEWSById" resultMap="newsResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		NEWS_ID,
+		NEWS_TITLE,
+		NEWS_CATEGORY,
+		NEWS_DESCRIPTION,
+		NEWS_IMG_URL,
+		NEWS_PDF_URL,
+		NEWS_VIDEO_URL,
+		PUBLISHED_BY,
+		CREATE_DATETIME,
+		CREATED_BY,
+		UPDATE_DATETIME,
+		UPDATED_BY
+		FROM
+		TBL_NEWS_READER
+		WHERE NEWS_ID = #{id}
+	</select>
+	
+	<select id="getNEWSByTitle" resultMap="newsResultMap" parameterType="java.util.Map">
+		SELECT
+		NEWS_ID,
+		NEWS_TITLE,
+		NEWS_CATEGORY,
+		NEWS_DESCRIPTION,
+		NEWS_IMG_URL,
+		NEWS_PDF_URL,
+		NEWS_VIDEO_URL,
+		PUBLISHED_BY,
+		CREATE_DATETIME,
+		CREATED_BY,
+		UPDATE_DATETIME,
+		UPDATED_BY
+		FROM
+		TBL_NEWS_READER
+		WHERE NEWS_TITLE = #{title}
+	</select>
+
+	<update id="updateNEWS" parameterType="com.fundzforus.server.domain.NewsReader">
+		UPDATE TBL_NEWS_READER SET
+		NEWS_TITLE = #{title, jdbcType=VARCHAR},
+		NEWS_CATEGORY = #{category, jdbcType=VARCHAR},
+		NEWS_DESCRIPTION = #{description, jdbcType=VARCHAR},
+	    NEWS_IMG_URL=#{imageURL, jdbcType=VARCHAR},
+	    NEWS_PDF_URL=#{pdfURL, jdbcType=VARCHAR},
+	    PUBLISHED_BY=#{publishedBy, jdbcType=VARCHAR},
+		NEWS_VIDEO_URL=#{videoURL, jdbcType=VARCHAR},
+		UPDATE_DATETIME = CURRENT_TIMESTAMP(),
+		UPDATED_BY = #{updatedBy, jdbcType=VARCHAR}
+		WHERE NEWS_ID = #{id, jdbcType=VARCHAR}
+	</update>
+
+	<insert id="insertNEWS" parameterType="com.fundzforus.server.domain.NewsReader">
+		INSERT INTO TBL_NEWS_READER (
+		NEWS_TITLE,
+		NEWS_CATEGORY,
+		NEWS_DESCRIPTION,
+		NEWS_IMG_URL,
+		NEWS_PDF_URL,
+		NEWS_VIDEO_URL,
+		PUBLISHED_BY,
+		CREATE_DATETIME,
+		CREATED_BY,
+		UPDATE_DATETIME,
+		UPDATED_BY
+		)
+		VALUES(
+		#{title, jdbcType=VARCHAR},
+		#{category, jdbcType=VARCHAR},
+		#{description, jdbcType=VARCHAR},
+		#{imageURL, jdbcType=VARCHAR},
+		#{pdfURL, jdbcType=VARCHAR},
+		#{videoURL, jdbcType=VARCHAR},
+		#{publishedBy, jdbcType=VARCHAR},
+		CURRENT_TIMESTAMP(),
+		#{createdBy, jdbcType=VARCHAR},
+		CURRENT_TIMESTAMP(),
+		#{updatedBy, jdbcType=VARCHAR}
+		)
+	</insert>
+	<delete id="deleteNEWSById" parameterType="java.util.Map">
+		DELETE FROM
+		TBL_NEWS_READER
+		WHERE NEWS_ID = #{id}
+	</delete>
+</mapper>

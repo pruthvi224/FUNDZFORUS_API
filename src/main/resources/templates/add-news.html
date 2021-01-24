@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+    <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>FUNDZFORUS</title>
+</head>
+<body>
+<form action="#" th:action="@{/addNews}" th:object="${userForm}" method="post">
+    <div class="sign-container part-left">
+        <i class="fa fa-chevron-left fa-lg part-left" aria-hidden="true" onclick="location.href='/newsfeed'"></i>
+        <h1>Add News</h1>
+        <input type="text" placeholder="Enter Title" th:field="*{newsReaderNew.title}" class="sign-in-input">
+        <input type="text" placeholder="Enter Cateogory" th:field="*{newsReaderNew.category}" class="sign-in-input">
+        <input type="text" placeholder="Enter Description" th:field="*{newsReaderNew.description}" class="sign-in-input">
+        <input type="text" placeholder="Enter Image URL" th:field="*{newsReaderNew.imageURL}" class="sign-in-input">
+        <input type="text" placeholder="Enter PDF URL" th:field="*{newsReaderNew.pdfURL}" class="sign-in-input">
+        <input type="text" placeholder="Enter Video URL" th:field="*{newsReaderNew.videoURL}" class="sign-in-input">
+        <br>
+    </div>
+    <div class="become-part">
+        <div>
+            <button class="btn-com btn-pry btn-gap-2">SUBMIT</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

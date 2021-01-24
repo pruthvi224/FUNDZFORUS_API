@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>FUNDZFORUS</title>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+    <link rel="stylesheet" type="text/css" href="/css/index2.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        $(document).ready(function () {
+            $("#hide").click(function () {
+                $("#lnav").hide();
+            });
+            $("#show").click(function () {
+                $("#lnav").show();
+            });
+
+
+            $("#phide").click(function () {
+                $("#profile").hide();
+            });
+            $("#pshow").click(function () {
+                $("#profile").show();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="lnav" class="left-nav">
+        <div class="vertical-menu">
+            <a th:href="@{/videos}"><i class="fa fa-play" aria-hidden="true"></i>Videos</a>
+            <a th:href="@{/programs}"><i class="fa fa-calendar-o" aria-hidden="true"></i>Programs
+            </a>
+            <a th:href="@{/messages(category='all')}"><i class="fa fa-file-text-o" aria-hidden="true"></i>Message Board</a>
+            <a th:href="@{/newsfeed}"><i class="fa fa-list-alt" aria-hidden="true"></i>News
+                Feed</a>
+            <a th:href="@{/partners}"><i class="fa fa-handshake-o" aria-hidden="true"></i>Partners</a>
+        </div>
+        <div class="close-nav">
+            <a href="#" id="hide"> <i class="fa fa-times" aria-hidden="true"></i></a>
+        </div>
+    </div>
+
+    <div id="profile" class="profile-block">
+        <div class="profile-close">
+            <a id="phide">
+                <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div style="text-align: right;
+        color: #fff;
+        margin-right: 40px;
+        padding: 0 !important;
+        margin-top: -9px;">
+            <i class="fa fa-caret-up fa-2x" aria-hidden="true"></i>
+        </div>
+        <div class="user-profile">
+            <div class="user-pic">
+                <img src="/img/user-pic.png" width="139px">
+            </div>
+            <form style="overflow:scroll;min-height:400px; max-height:1000px">
+                <h1 th:text="*{userForm.firstName + ' ' + userForm.lastName}">Victor Niculici</h1>
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="fname" th:field="${userForm.firstName}">
+                <label for="fname">Email</label>
+                <input type="text" id="email" name="email" th:field="${userForm.email}">
+                <label for="fname">Location</label>
+                <input type="text" id="location" name="location" th:field="${userForm.location}">
+                <label for="fname">Receive notifications</label>
+                <input type="text" id="receiveNotification" name="receiveNotification"
+                       th:field="${userForm.receiveNotification}">
+            </form>
+            <form method="get" action="/logout">
+                <button class="btn-com btn-logout btn-profile">Logout</button>
+            </form>
+            <form method="get" action="/editprofile">
+                <button class="btn-com btn-edit btn-profile">Edit Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="sub-page-header">
+        <div class="header-nav">
+            <div style="flex-grow: 8">
+                <a id="show">
+                    <i class="fa fa-bars fa-2x nav-but" aria-hidden="true"></i></a>
+            </div>
+            <div class="head-nav-but">
+                <i class="fa fa-bell head-bell fa-lg" aria-hidden="true"></i>
+            </div>
+            <div class="head-nav-but">
+                <a id="pshow">
+                    <i class="fa fa-user-circle head-user fa-lg" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+        <h4 th:text="${userForm.message}">Messages</h4>
+        <h1>Programs</h1>
+        <ul class="nav nav-tabs pro-tabs">
+            <li class="active">All Time</li>
+            <li><a href="/todayprograms">Today</a></li>
+            <li><a href="/tomorrowprograms">Tomorrow</a></li>
+            <li><a href="/thisweekprograms">This Week</a></li>
+        </ul>
+    </div>
+    <!-- tabs starts-->
+    <div class="tab-content tab-text">
+        <div id="home" class="tab-pane fade in active ">
+
+            <div class="program-block" th:each="program: ${userForm.programs}">
+                <img th:src="${program.programImageUrl}">
+
+                <div class="program-slot"><h4 th:text="${program.programDayOfMonth}">30</h4>
+                    <p th:text="${program.programMonth}">Aug</p></div>
+                <div class="program-info">
+                    <h4 th:text="${program.programName}">Sed a magna semper, porta purus eu,</h4>
+                    <p th:text="${'Start at ' + program.programTime}"><i class="fa fa-clock-o fa-lg" aria-hidden="true"></i>Start
+                        at 08:00 PM</p>
+                    <p th:text="${program.programAddress}"><i class="fa fa-location-arrow fa-lg" aria-hidden="true"></i></p>
+                    <br>
+                    <a class="messege-but" th:href="@{/programDetails(id=${program.id})}" href="">View Details</a><br>
+                    <a class="messege-but" th:href="@{/updateProgram(id=${program.id})}" href="">Update Program</a><br>
+                    <a class="messege-but" th:href="@{/deleteProgram(id=${program.id})}" href="">Delete Program</a>
+                </div>
+            </div>
+
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <div class="messege-block">
+                <p>Today</p>
+            </div>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <div class="messege-block">
+                <p>Tomorrow</p>
+            </div>
+        </div>
+        <div id="menu3" class="tab-pane fade">
+            <div class="messege-block">
+                <p>This week</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- tabs ends -->
+    <!-- tabs ends -->
+    <div class="partners-button">
+        <button class="messege-but" onclick="location.href='/newProgram'">Add a Program</button>
+    </div>
+    <div id="footer">
+        <div class="bottom-icons">
+            <i class="fa fa-play" aria-hidden="true" onclick="location.href='/home'"></i>
+            <i class="fa fa-calendar-o" aria-hidden="true" onclick="location.href='/programs'"></i>
+            <i class="fa fa-file-text-o" aria-hidden="true" onclick="location.href='/messages?category=all'"></i>
+            <i class="fa fa-list-alt bnav-active" aria-hidden="true" onclick="location.href='/newsfeed'"></i>
+            <i class="fa fa-handshake-o " aria-hidden="true" onclick="location.href='/partners'"></i>
+        </div>
+        <div class="bottom-slider">
+            <hr>
+        </div>
+    </div>
+
+    </div>
+
+
+</body>
+</html>

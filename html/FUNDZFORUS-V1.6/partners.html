@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FUNDZFORUS</title>
+	<meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
+   <script>
+$(document).ready(function(){
+  $("#hide").click(function(){
+    $("#lnav").hide();
+  });
+  $("#show").click(function(){
+    $("#lnav").show();
+  });
+  
+  
+  $("#phide").click(function(){
+    $("#profile").hide();
+  });
+  $("#pshow").click(function(){
+    $("#profile").show();
+  });
+});
+</script>
+</head>
+<body>
+<div id="lnav" class="left-nav">
+<div class="vertical-menu">
+<a href="home.html"><i class="fa fa-play" aria-hidden="true"></i>Videos</a>
+<a href="programs.html"><i class="fa fa-calendar-o" aria-hidden="true"></i>Programs </a>
+<a href="messege-board.html"><i class="fa fa-file-text-o" aria-hidden="true"></i>Message Board</a>
+<a href="news-feed.html"><i class="fa fa-list-alt" aria-hidden="true"></i>News Feed</a>
+<a><i class="fa fa-handshake-o" aria-hidden="true"></i>Partners</a>
+</div>
+<div class="close-nav">
+ <a href="#" id="hide"> <i class="fa fa-times" aria-hidden="true"></i></a>
+</div>
+</div>
+
+<div id="profile" class="profile-block">
+<div class="profile-close">
+<a id="phide">
+<i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>	
+</a>
+</div>
+<div style="text-align: right;
+    color: #fff;
+    margin-right: 40px;
+    padding: 0 !important;
+    margin-top: -9px;">
+<i class="fa fa-caret-up fa-2x" aria-hidden="true"></i>
+</div>
+<div class="user-profile">
+	<div class="user-pic">
+	<img src="img/user-pic.png" width="139px">
+	</div>
+	<h1>Victor Niculici</h1>
+	<form style="overflow:scroll;min-height:400px; max-height:1000px">
+	<label for="fname">First Name</label>
+	<input type="text" id="fname" name="fname" value="niculici.victor">
+    <label for="fname">Email</label>
+	<input type="text" id="email" name="email" value="niculici.victor@gmail.com">
+	<label for="fname">Location</label>
+	<input type="text" id="location" name="location" value="Bucharest, Romania">
+	<label for="fname">Receive notifications</label>
+	<input type="text" id="location" name="location" value="Enabled">
+		<button class="btn-com btn-logout btn-profile">Logout</button>
+		<button class="btn-com btn-edit btn-profile">Edit Profile</button>
+
+</form>
+</div>
+</div>
+
+	<div class="sub-page-header">
+		<div class="header-nav">
+			<div style="flex-grow: 8">
+			<a id="show">
+			<i class="fa fa-bars fa-2x nav-but" aria-hidden="true"></i></a>
+			</div>
+			<div class="head-nav-but">
+			<i class="fa fa-bell head-bell fa-lg" aria-hidden="true"></i>
+			</div>
+			<div class="head-nav-but">
+			<a id="pshow">
+			<i class="fa fa-user-circle head-user fa-lg" aria-hidden="true"></i>	
+			</a>
+			</div>
+		</div>
+		<h1>Partners</h1>
+	
+		</div>
+		<!-- tabs starts-->
+
+	<div class="logo-block">
+   <div class="flex-container">
+  <div><a href="partners-sub.html"><img src="img/partner-1.png"></a></div>
+  <div><img src="img/partner-2.png"></div>
+  </div>
+  <div class="flex-container">
+  <div><img src="img/partner-3.png"></div>
+  <div><img src="img/partner-4.png"></div>
+  </div>
+  <div class="flex-container">
+  <div><img src="img/partner-5.png"></div>
+  <div><img src="img/partner-6.png"></div>
+  </div>
+  <div class="flex-container">
+  <div><img src="img/partner-7.png"></div>
+  <div><img src="img/partner-8.png"></div>  
+  </div>
+  <div class="flex-container">
+  <div><img src="img/partner-9.png"></div>
+  <div><img src="img/partner-10.png"></div>
+	</div>
+ </div>
+  
+<div class="partners-button"><button class="messege-but" onclick="location.href='become-partner.html'" >Become a Partner</button></div>  
+
+<div id="footer">
+<div class="bottom-icons">
+<i class="fa fa-play" aria-hidden="true" onclick="location.href='home.html'"></i>
+<i class="fa fa-calendar-o" aria-hidden="true" onclick="location.href='programs.html'"></i>
+<i class="fa fa-file-text-o" aria-hidden="true" onclick="location.href='messege-board.html'"></i>
+<i class="fa fa-list-alt" aria-hidden="true" onclick="location.href='news-feed.html'"></i>
+<i class="fa fa-handshake-o bnav-active" aria-hidden="true" onclick="location.href='partners.html'"></i>
+</div>
+	<div class="bottom-slider">
+		<hr>
+	</div>
+</div>	
+		
+</div>		
+
+
+	
+	</body>
+</html>

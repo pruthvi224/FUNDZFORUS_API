@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fundzforus.server.dao.mybatis.TenantMapper" >
+    <resultMap id="tenantResultMap" type="com.fundzforus.server.domain.Tenant" >
+        <id property="id" column="TENANT_ID" jdbcType="INTEGER" />
+        <result property="tenantName" column="TENANT_NAME" jdbcType="VARCHAR" />
+        <result property="tenantUrl" column="TENANT_URL" jdbcType="VARCHAR" />
+        <result property="addressLine1" column="ADDRESS_LINE1" jdbcType="VARCHAR" />
+        <result property="phone" column="PHONE" jdbcType="VARCHAR" />
+        <result property="emailAddress" column="EMAIL_ADDRESS" jdbcType="VARCHAR" />
+        <result property="addressLine2" column="ADDRESS_LINE2" jdbcType="VARCHAR" />
+        <result property="city" column="CITY" jdbcType="VARCHAR" />
+        <result property="state" column="STATE" jdbcType="VARCHAR" />
+        <result property="zipCode" column="ZIP_CODE" jdbcType="VARCHAR" />
+        <result property="createDateTime" column="CREATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="createdBy" column="CREATED_BY" jdbcType="VARCHAR" />
+        <result property="updateDateTime" column="UPDATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="updatedBy" column="UPDATED_BY" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="findAllTenants" resultMap="tenantResultMap">
+        SELECT
+            TENANT_ID,
+            TENANT_NAME,
+            TENANT_URL,
+            PHONE,
+            EMAIL_ADDRESS,
+            ADDRESS_LINE1,
+            ADDRESS_LINE2,
+            CITY,
+            STATE,
+            ZIP_CODE,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_TENANT
+    </select>
+
+    <select id="findTenantByTenantName" resultMap="tenantResultMap" parameterType="java.util.Map">
+        SELECT
+            TENANT_ID,
+            TENANT_NAME,
+            TENANT_URL,
+            PHONE,
+            EMAIL_ADDRESS,
+            ADDRESS_LINE1,
+            ADDRESS_LINE2,
+            CITY,
+            STATE,
+            ZIP_CODE,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_TENANT
+        WHERE
+            TENANT_NAME = #{roleName, jdbcType=VARCHAR}
+    </select>
+
+    <select id = "getTenantById" parameterType = "int" resultMap = "tenantResultMap">
+      SELECT
+            TENANT_ID,
+            TENANT_NAME,
+            TENANT_URL,
+            PHONE,
+            EMAIL_ADDRESS,
+            ADDRESS_LINE1,
+            ADDRESS_LINE2,
+            CITY,
+            STATE,
+            ZIP_CODE,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_TENANT
+        WHERE TENANT_ID = #{id}
+   </select>
+
+    <update id = "updateTenant" parameterType = "com.fundzforus.server.domain.Tenant">
+      UPDATE TBL_TENANT SET
+            TENANT_URL = #{tenantUrl, jdbcType=VARCHAR},
+            PHONE = #{phone, jdbcType=VARCHAR},
+            EMAIL_ADDRESS = #{emailAddress, jdbcType=VARCHAR},
+            ADDRESS_LINE1 = #{addressLine1, jdbcType=VARCHAR},
+            ADDRESS_LINE2 = #{addressLine2, jdbcType=VARCHAR},
+            CITY = #{city, jdbcType=VARCHAR},
+            STATE = #{state, jdbcType=VARCHAR},
+            ZIP_CODE = #{zipCode, jdbcType=VARCHAR},
+            UPDATE_DATETIME = CURRENT_TIMESTAMP(),
+            UPDATED_BY = #{updatedBy, jdbcType=VARCHAR}
+      WHERE TENANT_ID = #{id}
+   </update>
+
+    <insert id="insertTenant" parameterType="com.fundzforus.server.domain.Tenant">
+        INSERT INTO TBL_TENANT (
+            TENANT_NAME,
+            TENANT_URL,
+            PHONE,
+            EMAIL_ADDRESS,
+            ADDRESS_LINE1,
+            ADDRESS_LINE2,
+            CITY,
+            STATE,
+            ZIP_CODE,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY)
+        VALUES(
+            #{tenantName, jdbcType=VARCHAR},
+            #{tenantUrl, jdbcType=VARCHAR},
+            #{phone, jdbcType=VARCHAR},
+            #{emailAddress, jdbcType=VARCHAR},
+            #{addressLine1, jdbcType=VARCHAR},
+            #{addressLine2, jdbcType=VARCHAR},
+            #{city, jdbcType=VARCHAR},
+            #{state, jdbcType=VARCHAR},
+            #{zipCode, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP(),
+            #{createdBy, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP(),
+            #{updatedBy, jdbcType=VARCHAR}
+        )
+  </insert>
+
+    <delete id = "deleteTenantById" parameterType = "java.util.Map">
+      DELETE FROM TBL_TENANT WHERE TENANT_ID = #{id}
+   </delete>
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fundzforus.server.dao.mybatis.RoleMapper" >
+    <resultMap id="userRoleResultMap" type="com.fundzforus.server.domain.Role" >
+        <id property="id" column="ROLE_ID" jdbcType="INTEGER" />
+        <result property="roleName" column="ROLE_NAME" jdbcType="VARCHAR" />
+        <result property="description" column="DESCRIPTION" jdbcType="VARCHAR" />
+        <result property="createDateTime" column="CREATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="createdBy" column="CREATED_BY" jdbcType="VARCHAR" />
+        <result property="updateDateTime" column="UPDATE_DATETIME" jdbcType="TIMESTAMP" />
+        <result property="updatedBy" column="UPDATED_BY" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="findAllRoles" resultMap="userRoleResultMap">
+        SELECT
+            ROLE_ID,
+            ROLE_NAME,
+            DESCRIPTION,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_ROLE
+    </select>
+
+    <select id="findRoleByRoleName" resultMap="userRoleResultMap" parameterType="java.util.Map">
+        SELECT
+            ROLE_ID,
+            ROLE_NAME,
+            DESCRIPTION,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_ROLE
+        WHERE
+            ROLE_NAME = #{roleName, jdbcType=VARCHAR}
+    </select>
+
+    <select id = "getRoleById" parameterType = "int" resultMap = "userRoleResultMap">
+      SELECT
+            ROLE_ID,
+            ROLE_NAME,
+            DESCRIPTION,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY
+        FROM TBL_ROLE
+        WHERE ROLE_ID = #{id}
+   </select>
+
+    <update id = "updateRole" parameterType = "com.fundzforus.server.domain.Role">
+      UPDATE TBL_ROLE SET
+            DESCRIPTION = #{description, jdbcType=VARCHAR},
+            UPDATE_DATETIME = CURRENT_TIMESTAMP(),
+            UPDATED_BY = #{updatedBy, jdbcType=VARCHAR}
+      WHERE ROLE_ID = #{id}
+   </update>
+
+    <insert id="insertRole" parameterType="com.fundzforus.server.domain.Role">
+        INSERT INTO TBL_ROLE (
+            ROLE_NAME,
+            DESCRIPTION,
+            CREATE_DATETIME,
+            CREATED_BY,
+            UPDATE_DATETIME,
+            UPDATED_BY)
+        VALUES(
+            #{roleName, jdbcType=VARCHAR},
+            #{description, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP(),
+            #{createdBy, jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP(),
+            #{updatedBy, jdbcType=VARCHAR}
+        )
+  </insert>
+
+    <delete id = "deleteRoleById" parameterType = "java.util.Map">
+      DELETE FROM TBL_ROLE WHERE ROLE_ID = #{id}
+   </delete>
+</mapper>
