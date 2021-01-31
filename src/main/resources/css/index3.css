@@ -584,8 +584,17 @@ line-height:1.9;
 .tab-text{
 	padding:30px
 }
+
+.tab-pane {
+	min-height: 90vh;
+}
 .messege-block{
 	margin:0 0 45px 0;
+	font-family: 'Open Sans', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+	background: rgba(143,97,64, 0.9);
+	border-radius: 20px;
+	margin-bottom: 25px;
+	padding: 10px;
 }
 .messege-block>p{
 	color:#fff !important;
@@ -665,7 +674,7 @@ line-height:1.9;
 	vertical-align: middle;
     text-align:center;
 	margin:0 auto;
-	
+	width: 60%;
 }
 
 .partner-sub-head{
@@ -1082,14 +1091,4 @@ li {
 	color: white !important;
 	font-weight: bold;
 	font-size: 12px;
-}
-.active {
-	font-family: "Open Sans", "HelveticaNeue", Helvetica, Arial, sans-serif;
-	border-bottom: 3px solid #67CC12 !important;
-	color: #67CC12 !important;
-	font-weight: bold;
-	font-size: 12px;
-	background-color: transparent;
-	border-color: transparent;
-	padding: 10px;
 }

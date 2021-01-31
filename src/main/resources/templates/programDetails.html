@@ -6,27 +6,108 @@
     <meta name="msapplication-tap-highlight" content="no"/>
     <meta name="viewport"
           content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
-    <link rel="stylesheet" type="text/css" href="/css/index3.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/index2.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <title>FUNDZFORUS Program Details</title>
+    <title>Fundzforus</title>
+    <script>
+        $(document).ready(function () {
+            $("#hide").click(function () {
+                $("#lnav").hide();
+            });
+            $("#show").click(function () {
+                $("#lnav").show();
+            });
+
+
+            $("#phide").click(function () {
+                $("#profile").hide();
+            });
+            $("#pshow").click(function () {
+                $("#profile").show();
+            });
+        });
+    </script>
 </head>
 <body>
-<div class="rsvp-head">
-    <i class="fa fa-chevron-left fa-lg" aria-hidden="true" onclick="location.href='/programs'"></i>
-    <img src="/img/rsvp.png">
+<div id="lnav" class="left-nav">
+    <div class="vertical-menu">
+        <a th:href="@{/videos}"><i class="fa fa-play" aria-hidden="true"></i>Videos</a>
+        <a th:href="@{/programs}"><i class="fa fa-calendar-o" aria-hidden="true"></i>Programs</a>
+        <a href="/messages?category=all"><i class="fa fa-file-text-o" aria-hidden="true"></i>Message Board</a>
+        <a th:href="@{/newsfeed}"><i class="fa fa-list-alt" aria-hidden="true"></i>News
+            Feed</a>
+        <a th:href="@{/partners}"><i class="fa fa-handshake-o" aria-hidden="true"></i>Partners</a>
+    </div>
+    <div class="close-nav">
+        <a href="#" id="hide"> <i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
 </div>
-<div class="bg-div">
-    <div class="strectch-band"></div>
+<div id="profile" class="profile-block">
+    <div class="profile-close">
+        <a id="phide">
+            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div style="text-align: right;
+            color: #fff;
+            margin-right: 40px;
+            padding: 0 !important;
+            margin-top: -9px;">
+        <i class="fa fa-caret-up fa-2x" aria-hidden="true"></i>
+    </div>
+    <div class="user-profile">
+        <div class="user-pic">
+            <img th:src="*{userForm.imageUrl}" width="139px">
+        </div>
+        <form style="overflow:scroll;min-height:400px; max-height:1000px" th:object="${userForm}">
+            <h1 th:text="*{firstName + ' ' + lastName}">Victor Niculici</h1>
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" th:field="*{firstName}">
+            <label for="fname">Email</label>
+            <input type="text" id="email" name="email" th:field="*{email}">
+            <label for="fname">Location</label>
+            <input type="text" id="location" name="location" th:field="*{location}">
+            <label for="fname">Receive notifications</label>
+            <input type="text" id="receiveNotification" name="receiveNotification" th:field="*{receiveNotification}">
+        </form>
+        <form method="get" action="/logout">
+            <button class="btn-com btn-logout btn-profile">Logout</button>
+        </form>
+        <form method="get" action="/editprofile">
+            <button class="btn-com btn-edit btn-profile">Edit Profile</button>
+        </form>
+    </div>
+</div>
+<div class="sub-page-header">
+    <div class="header-nav">
+        <div style="flex-grow: 8">
+            <a id="show">
+                <i class="fa fa-bars fa-2x nav-but" aria-hidden="true"></i></a>
+        </div>
+        <div class="head-nav-but">
+            <i class="fa fa-bell head-bell fa-lg" aria-hidden="true"></i>
+        </div>
+        <div class="head-nav-but">
+            <a id="pshow">
+                <i class="fa fa-user-circle head-user fa-lg" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+<!--    <h1>Program Details</h1>-->
+    <h2 th:text="${userForm.program.programName}" class="program-name"></h2>
+</div>
+<div class="details-div">
     <div class="rsvp-container">
         <span th:text="${userForm.program.programDateTimeField}"></span>
-        <h2 th:text="${userForm.program.programName}"></h2>
-        <p th:text="${userForm.program.bookings}"><i class="fa fa-users fa-lg" aria-hidden="true"></i></p>
+        <span th:text="${ 'RSVP: ' + userForm.program.bookings}"></span>
         <p th:text="${userForm.program.programDescription}"><i class="fa fa-location-arrow fa-2x" aria-hidden="true"></i></p>
-        <h4>Details</h4>
         <p th:text="${userForm.program.programDetails}"></p>
         <div class="flex-container-rsvp">
             <div>
-                <iframe width="90%" height="315" th:src="${userForm.program.programVideoUrl}" frameborder="0"
+                <iframe width="100%" height="200" th:src="${userForm.program.programVideoUrl}" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
             </div>
@@ -35,6 +116,18 @@
             <input type="hidden" name="id" th:value="${userForm.program.id}">
             <button class="btn-com btn-pry ">RSVP</button>
         </form>
+    </div>
+</div>
+<div id="footer">
+    <div class="bottom-icons">
+        <i class="fa fa-play" aria-hidden="true" onclick="location.href='/home'"></i>
+        <i class="fa fa-calendar-o" aria-hidden="true" onclick="location.href='/programs'"></i>
+        <i class="fa fa-file-text-o" aria-hidden="true" onclick="location.href='/messages?category=all'"></i>
+        <i class="fa fa-list-alt bnav-active" aria-hidden="true" onclick="location.href='/newsfeed'"></i>
+        <i class="fa fa-handshake-o " aria-hidden="true" onclick="location.href='/partners'"></i>
+    </div>
+    <div class="bottom-slider">
+        <hr>
     </div>
 </div>
 </body>

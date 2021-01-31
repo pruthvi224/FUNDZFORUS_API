@@ -809,6 +809,15 @@ position:fixed;bottom:19%;width:100%;text-align:center
 	margin-top:15px;
 }
 
+.details-div {
+	height: 110vh;
+}
+
+.program-name {
+	margin-bottom: 10px;
+	display: inline-block;
+	font-size: 22px;
+}
 .program-slot{	
 	background-color:#fff;
 	width:45px;
@@ -834,10 +843,9 @@ position:fixed;bottom:19%;width:100%;text-align:center
 }
 
 .rsvp-head>i{
-	position:absolute;
 	z-index:3;
-	color:#fff !important;
-	top: 30px;
+	color: black !important;
+	top: 65px;
     left: 15px;
 }
 .rsvp-head>div{
