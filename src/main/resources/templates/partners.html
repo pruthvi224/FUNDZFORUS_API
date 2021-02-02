@@ -107,12 +107,12 @@
 <div class="logo-block">
     <div class="flex-container" th:each="partnerSubList: ${userForm.partnersList}">
         <div>
-            <a th:if="${partnerSubList[0].id!=0}" th:href="@{/partnerDetails(id=${partnerSubList[0].id})}"><img
+            <a th:if="${partnerSubList[0].id!=0}" th:href="@{/partnerDetails(id=${partnerSubList[0].id})}"><img class="partners-image"
                     th:src="${partnerSubList[0].logoURL}"></a>
         </div>
         <div>
             <a th:if="${partnerSubList[1].id!=0}" th:href="@{/partnerDetails(id=${partnerSubList[1].id})}"><img
-                    th:src="${partnerSubList[1].logoURL}"></a>
+                    th:src="${partnerSubList[1].logoURL}" class="partners-image"></a>
         </div>
     </div>
 </div>

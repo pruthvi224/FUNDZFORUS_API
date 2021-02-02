@@ -670,6 +670,10 @@ line-height:1.9;
   text-align: center;
 
 }
+
+.partners-image {
+	width: 60%;
+}
 .flex-container >div>img {
 	vertical-align: middle;
     text-align:center;
